@@ -1,0 +1,35 @@
+apply plugin: 'java'
+apply plugin: 'kotlin'
+apply plugin: 'com.novoda.bintray-release'
+
+def cfg = rootProject.ext.configuration
+def bintrayCfg = rootProject.ext.bintrayConfig
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+dependencies {
+    implementation project(':dagger2-ktx')
+    implementation 'com.google.dagger:dagger:2.16'
+    implementation 'com.google.auto.service:auto-service:1.0-rc4'
+    implementation 'com.google.auto:auto-common:0.10'
+    implementation 'com.google.guava:guava:24.1-jre'
+    implementation 'com.squareup:javapoet:1.10.0'
+    implementation 'com.squareup:kotlinpoet:0.7.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'com.google.truth:truth:0.36'
+    testImplementation 'com.google.testing.compile:compile-testing:0.13'
+}
+
+publish {
+    artifactId = bintrayCfg.artifactCompiler
+    userOrg = bintrayCfg.userOrg
+    groupId = bintrayCfg.groupId
+    uploadName = bintrayCfg.name
+    publishVersion = cfg.versionName
+    desc = bintrayCfg.description
+    website = bintrayCfg.website
+    licences = bintrayCfg.licences
+}
