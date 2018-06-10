@@ -8,11 +8,11 @@ ext {
             userOrg         : "blipinsk",
             userName        : "Bartosz Lipinski",
             userEmail       : "bartoszlipinski90@gmail.com",
-            groupId         : "com.bartoszlipinski.dagger2-ktx",
+            groupId         : "com.bartoszlipinski",
             name            : "dagger2-ktx",
             artifactLibrary : "dagger2-ktx",
             artifactCompiler: "dagger2-ktx-compiler",
-            description     : "",
+            description     : "Kotlin extension bridge library for Dagger2 (proof-of-concept)",
             website         : "https://github.com/blipinsk/dagger2-ktx",
             gitUrl          : "https://github.com/blipinsk/dagger2-ktx.git",
             licenses        : ["Apache-2.0"],
@@ -21,7 +21,7 @@ ext {
 
     bintrayUser = BINTRAY_USERNAME
     bintrayKey = BINTRAY_API_KEY
-    dryRun = 'true'
+    dryRun = 'false'
     isUploading = project.getGradle().startParameter.taskNames.any { it.contains('bintrayUpload') }
 }
 
@@ -29,11 +29,11 @@ buildscript {
     ext.kotlin_version = '1.2.41'
 
     repositories {
-        google()
+        maven { url 'https://maven.google.com' }
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0-alpha15'
+        classpath 'com.android.tools.build:gradle:3.1.1' //newer plugin will break the bintray-release
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.novoda:bintray-release:0.8.1'
         // clean build bintrayUpload
@@ -42,7 +42,8 @@ buildscript {
 
 allprojects {
     repositories {
-        google()
+        maven { url 'https://dl.bintray.com/blipinsk/maven/' }
+        maven { url 'https://maven.google.com' }
         jcenter()
     }
 }
@@ -70,7 +71,7 @@ subprojects {
                     project {
                         name "$project.name"
                         artifactId project.name
-                        packaging project.name == bintrayConfig.artifactCompiler ? 'jar' : 'aar'
+                        packaging 'jar'
                         description bintrayConfig.description
                         url bintrayConfig.website
                         version configuration.versionName

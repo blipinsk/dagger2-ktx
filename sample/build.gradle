@@ -45,13 +45,12 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    kapt project(':dagger2-ktx-compiler')
-    implementation project(':dagger2-ktx')
+//    kapt project(':dagger2-ktx-compiler')
+//    implementation project(':dagger2-ktx')
+
+    kapt "com.bartoszlipinski:dagger2-ktx-compiler:0.1.0"
+    implementation "com.bartoszlipinski:dagger2-ktx:0.1.0"
 
     implementation 'com.google.dagger:dagger:2.16'
     kapt 'com.google.dagger:dagger-compiler:2.16'
-}
-
-repositories {
-    mavenCentral()
 }
