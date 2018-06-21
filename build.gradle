@@ -1,28 +1,11 @@
 ext {
     configuration = [
             versionCode: 1,
-            versionName: "0.1.0"
-    ]
-
-    bintrayConfig = [
-            userOrg         : "blipinsk",
-            userName        : "Bartosz Lipinski",
-            userEmail       : "bartoszlipinski90@gmail.com",
-            groupId         : "com.bartoszlipinski",
-            name            : "dagger2-ktx",
-            artifactLibrary : "dagger2-ktx",
-            artifactCompiler: "dagger2-ktx-compiler",
-            description     : "Kotlin extension bridge library for Dagger2 (proof-of-concept)",
-            website         : "https://github.com/blipinsk/dagger2-ktx",
-            gitUrl          : "https://github.com/blipinsk/dagger2-ktx.git",
-            licenses        : ["Apache-2.0"],
-            licenseDesc     : "The Apache Software License, Version 2.0"
+            versionName: VERSION_NAME
     ]
 
     bintrayUser = BINTRAY_USERNAME
     bintrayKey = BINTRAY_API_KEY
-    dryRun = 'false'
-    isUploading = project.getGradle().startParameter.taskNames.any { it.contains('bintrayUpload') }
 }
 
 buildscript {
@@ -35,7 +18,10 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.1' //newer plugin will break the bintray-release
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.novoda:bintray-release:0.8.1'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.1'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.9.17"
+        classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.17"
         // clean build bintrayUpload
     }
 }
@@ -50,54 +36,4 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
-}
-
-subprojects {
-    group = bintrayConfig.groupId
-    version = configuration.versionName
-
-    if (isUploading && project.name in [bintrayConfig.artifactLibrary, bintrayConfig.artifactCompiler]) {
-        println project.name
-        apply plugin: 'maven'
-
-        gradle.taskGraph.whenReady { taskGraph ->
-            taskGraph.getAllTasks().find {
-                it.path == ":$project.name:generatePomFileForMavenPublication"
-            }.doLast {
-                file("build/publications/maven/pom-default.xml").delete()
-                println 'Overriding pom-file to make sure we can sync to maven central!'
-                pom {
-                    //noinspection GroovyAssignabilityCheck
-                    project {
-                        name "$project.name"
-                        artifactId project.name
-                        packaging 'jar'
-                        description bintrayConfig.description
-                        url bintrayConfig.website
-                        version configuration.versionName
-
-                        scm {
-                            url bintrayConfig.gitUrl
-                            connection bintrayConfig.gitUrl
-                            developerConnection bintrayConfig.gitUrl
-                        }
-
-                        licenses {
-                            license {
-                                name bintrayConfig.licenseDesc
-                            }
-                        }
-
-                        developers {
-                            developer {
-                                id bintrayConfig.userOrg
-                                name bintrayConfig.userName
-                                email bintrayConfig.userEmail
-                            }
-                        }
-                    }
-                }.writeTo("build/publications/maven/pom-default.xml")
-            }
-        }
-    }
 }
