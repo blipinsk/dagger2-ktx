@@ -3,7 +3,7 @@ dagger2-ktx
 
 Kotlin extension bridge library for [Dagger2](https://github.com/google/dagger) (proof-of-concept)
 
-Read more here: [Kotlin extension methods generation 🚀… here's why it's a game-changer for Annotation Processing.](https://medium.com/p/15b5e6499dc8)
+Read more here: [Kotlin extension methods generation 🚀… here's why it's a game-changer for Annotation Processing.](https://medium.com/@blipinsk/kotlin-extension-methods-generation-15b5e6499dc8)
 
 Usage
 =====
