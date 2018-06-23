@@ -3,12 +3,61 @@ dagger2-ktx
 
 Kotlin extension bridge library for [Dagger2](https://github.com/google/dagger) (proof-of-concept)
 
-Read more here: [Kotlin extension methods generation 🚀… here's why it's a game-changer for Annotation Processing.](https://medium.com/@blipinsk/kotlin-extension-methods-generation-15b5e6499dc8)
+Read more here: [Kotlin extension function generation 🚀… here's why it's a game-changer for Annotation Processing.](https://medium.com/@blipinsk/kotlin-extension-methods-generation-15b5e6499dc8)
 
 Usage
 =====
+*For a working implementation of this library see the `sample/` module.*
 
-TODO
+ 1. Add to your module's `build.gradle`
+
+     * for Android project:
+
+         ```groovy
+         android {
+             sourceSets {
+                 main.java.srcDirs += 'src/main/kotlin'
+                 debug.java.srcDirs += 'src/debug/kotlin'
+                 release.java.srcDirs += 'src/release/kotlin'
+                 test.java.srcDirs += 'src/test/kotlin'
+
+                 // For kapt stubs
+                 main.java.srcDirs += [file("$buildDir/generated/source/kapt/main")]
+                 debug.java.srcDirs += [file("$buildDir/generated/source/kapt/debug")]
+                 release.java.srcDirs += [file("$buildDir/generated/source/kapt/release")]
+                 test.java.srcDirs += [file("$buildDir/generated/source/kapt/test")]
+
+                 // For kotlin code gen during kapt
+                 main.java.srcDirs += [file("$buildDir/generated/source/kaptKotlin/main")]
+                 debug.java.srcDirs += [file("$buildDir/generated/source/kaptKotlin/debug")]
+                 release.java.srcDirs += [file("$buildDir/generated/source/kaptKotlin/release")]
+                 test.java.srcDirs += [file("$buildDir/generated/source/kaptKotlin/test")]
+             }
+         }
+         ```
+
+     * for Java/Kotlin project:
+
+         ```groovy
+         apply plugin: 'idea'
+
+         idea {
+           module {
+             sourceDirs += files(
+                 'build/generated/source/kapt/main',
+                 'build/generated/source/kaptKotlin/main',
+                 'build/tmp/kapt/main/kotlinGenerated')
+             generatedSourceDirs += files(
+                 'build/generated/source/kapt/main',
+                 'build/generated/source/kaptKotlin/main',
+                 'build/tmp/kapt/main/kotlinGenerated')
+           }
+         }
+         ```
+
+
+ 2. Change `ButterKnife.bind(target)` to `ButterKnifeKtx.bind(target)` (add `Ktx` after `ButterKnife`)
+ 3. Enjoy **Reflection-free** `ButterKnife`
 
 Including In Your Project
 -------------------------
