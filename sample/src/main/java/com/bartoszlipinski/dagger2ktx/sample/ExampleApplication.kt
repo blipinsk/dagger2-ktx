@@ -28,16 +28,3 @@ class ExampleApplication : Application() {
         Dagger.create(IncorrectComponent::class)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
