@@ -23,9 +23,9 @@ class ExampleApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Dagger().create(CorrectComponent::class)
-        Dagger().create(Foo.Bar.NestedCorrectComponent::class)
-        Dagger().create(IncorrectComponent::class)
+        Dagger.create(CorrectComponent::class)
+        Dagger.create(Foo.Bar.NestedCorrectComponent::class)
+        Dagger.create(IncorrectComponent::class)
     }
 }
 

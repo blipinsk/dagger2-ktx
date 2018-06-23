@@ -56,8 +56,19 @@ Usage
          ```
 
 
- 2. Change `ButterKnife.bind(target)` to `ButterKnifeKtx.bind(target)` (add `Ktx` after `ButterKnife`)
- 3. Enjoy **Reflection-free** `ButterKnife`
+ 2. Instead of creating your component with
+
+     ```java
+     DaggerYourComponent.create()
+     ```
+
+     use:
+
+     ```java
+     Dagger.create(YourComponent::class)
+     ```
+
+ 3. Enjoy no issues with imports of the `DaggerYourComponent`
 
 Including In Your Project
 -------------------------

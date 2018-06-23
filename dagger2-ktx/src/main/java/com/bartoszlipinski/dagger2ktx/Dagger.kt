@@ -18,7 +18,7 @@ package com.bartoszlipinski.dagger2ktx
 import kotlin.reflect.KClass
 
 // Extension Bridge "End Cap"
-class Dagger
+object Dagger
 
 @Suppress("unused")
 fun <T : Any> Dagger.create(@Suppress("UNUSED_PARAMETER") clazz: KClass<T>): T {
