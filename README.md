@@ -1,9 +1,9 @@
 dagger2-ktx
 ===============
 
-Kotlin extension bridge library for [Dagger2](https://github.com/google/dagger) (proof-of-concept)
+*Kotlin extension bridge library for [Dagger2](https://github.com/google/dagger) (proof-of-concept)*
 
-Read more here: [Kotlin extension function generation 🚀… here's why it's a game-changer for Annotation Processing.](https://medium.com/@blipinsk/kotlin-extension-methods-generation-15b5e6499dc8)
+Read more here: [Kotlin extension function generation 🚀…](https://medium.com/@blipinsk/kotlin-extension-methods-generation-15b5e6499dc8)
 
 Usage
 =====
