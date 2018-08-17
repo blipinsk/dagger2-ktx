@@ -17,28 +17,23 @@ package com.bartoszlipinski.dagger2ktx;
 
 import com.bartoszlipinski.dagger2ktx.utils.Logger;
 import com.bartoszlipinski.dagger2ktx.utils.Utils;
-import com.google.auto.service.AutoService;
 import com.squareup.kotlinpoet.FileSpec;
-
-import java.io.IOException;
-import java.util.Set;
-import java.util.stream.Collectors;
+import dagger.Component;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.ProcessingEnvironment;
-import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-
-import dagger.Component;
+import java.io.IOException;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.bartoszlipinski.dagger2ktx.utils.Utils.kotlinFiler;
 import static java.util.Collections.singleton;
 import static javax.lang.model.SourceVersion.latestSupported;
 
-@AutoService(Processor.class)
 public class Dagger2KtxProcessor extends AbstractProcessor {
 
     private static final String FILE_GENERATION_COMMENT = "Generated code from dagger2-ktx compiler. Do not modify!";
